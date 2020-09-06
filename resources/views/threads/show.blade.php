@@ -12,6 +12,13 @@
                 </div>
             </div>
         </div>
+    </div><br>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            @foreach ($thread->replies as $reply)
+                @include('threads.reply')
+            @endforeach
+        </div>
     </div>
 </div>
 @endsection
