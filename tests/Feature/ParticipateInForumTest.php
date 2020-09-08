@@ -7,32 +7,24 @@ use App\User;
 use App\Thread;
 use Illuminate\Auth\AuthenticationException;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ParticipateInForumTest extends TestCase
 {
-    use DatabaseMigrations;
-
     /** @test */
     public function unauthenticated_users_may_not_add_replies()
     {   
-        $this->withoutExceptionHandling();
-
-        $this->expectException(AuthenticationException::class);
-        
-        $this->post('/threads/1/replies', []);
+        $this->post('/threads/some-channel/1/replies', [])
+        ->assertRedirect('/login');
     }
 
     /** @test */
     public function an_authenticated_user_may_participate_in_forum_threads()
-    {
-        $user = factory(User::class)->create();
+    {       
+        $thread = create(Thread::class);
         
-        $thread = factory(Thread::class)->create();
+        $reply = make(Reply::class);
         
-        $reply = factory(Reply::class)->make();
-        
-        $this->actingAs($user);
+        $this->signIn();
 
         $this->post($thread->path() . '/replies', $reply->toArray());
         
