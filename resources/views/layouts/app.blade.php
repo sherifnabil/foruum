@@ -34,6 +34,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <a class="nav-link" href="{{ url('threads') }}">All Threads</a>
+                        <a class="nav-link" href="{{ url('/threads/create') }}">Add Thread</a>
 
                     </ul>
 
