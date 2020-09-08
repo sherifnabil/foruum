@@ -29,11 +29,21 @@
     @auth
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <form action="">
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+
+                <form action="{{ $thread->path() . '/replies' }}" method="post">
+                    @csrf
+                    <div class="form-group">
+                        <textarea name="body" id="body" placeholder="Have something to say" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary">Reply</button>
+                    </div>
                 </form>
+
             </div>
         </div>
+    @else
+    <p class="h3 text-center">Please <a href="{{ route('login') }}"> Sign in </a> to participate in the Discussion </p>
     @endauth
 </div>
 @endsection
