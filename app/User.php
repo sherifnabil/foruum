@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Thread;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -18,6 +19,13 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    public function threads()
+    {
+        return $this->hasMany(Thread::class, 'user_id');
+    }
+
+
 
     /**
      * The attributes that should be hidden for arrays.

@@ -3,33 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Reply;
+use App\Thread;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
 {
-    public function index()
-    {
-        //
-    }
 
-    public function create()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
-
-    public function store(Request $request)
+    
+    public function store(Thread $thread)
     {
-        //
-    }
-
-    public function show(Reply $reply)
-    {
-        //
-    }
-
-    public function edit(Reply $reply)
-    {
-        //
+        $thread->addReply([
+            'body'  => request('body'),
+            'user_id'  => auth()->user()->id,
+        ]);
+        
+        return back();
     }
 
     public function update(Request $request, Reply $reply)
