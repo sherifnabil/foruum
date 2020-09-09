@@ -14,16 +14,20 @@ class ThreadsController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
   
-    public function index()
+    public function index(Channel $channel)
     {
         $threads = Thread::latest()->get();
+        
+        if($channel->exists){
+            $threads = $channel->threads()->latest()->get();
+        }
+
         return view('threads.index', compact('threads'));
     }
     
     public function create()
     {
         return view('threads.create');
-        
     }
 
     public function store(Request $request)

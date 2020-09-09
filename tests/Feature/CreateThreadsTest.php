@@ -11,11 +11,10 @@ class CreateThreadsTest extends TestCase
     public function guests_may_not_create_threads()
     {
         $this->get('threads/create')
-        ->assertRedirect('/login');   
+        ->assertRedirect('/login');
 
         $this->post('threads')
         ->assertRedirect('/login'); 
-
     }
 
     /** @test*/

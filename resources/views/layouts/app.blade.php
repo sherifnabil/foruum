@@ -8,16 +8,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app" style="padding-bottom: 100px">
@@ -30,12 +26,26 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="nav navbar-collapse" id="appp-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <a class="nav-link" href="{{ url('threads') }}">All Threads</a>
-                        <a class="nav-link" href="{{ url('/threads/create') }}">Add Thread</a>
-
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="">
+                            <a class="nav-link" href="{{ url('threads') }}">All Threads</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url('/threads/create') }}">Add Thread</a>
+                        </li>
+                        <li class="nav-link">
+                            <li class="dropdown">
+                                <a href="#" class="text-gray dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Channels</a>
+                                <ul class="dropdown-menu" style="height: 250px; overflow:auto">
+                                    @foreach ($channels as $channel)
+                                    <li><a href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
+                                    @endforeach
+                                  {{-- <li role="separator" class="divider"></li> --}}
+                                </ul>
+                            </li>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,5 +88,16 @@
             @yield('content')
         </main>
     </div>
+
+    <!-- Scripts -->
+    <script src="{{ asset('js/jquery.min.js') }}" ></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
+    <script src="{{ asset('js/select2.min.js') }}" ></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
+    </script>
 </body>
 </html>
