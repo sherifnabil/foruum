@@ -29,8 +29,16 @@
                 <div class="nav navbar-collapse" id="appp-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav mr-auto">
-                        <li class="">
-                            <a class="nav-link" href="{{ url('threads') }}">All Threads</a>
+                        <li class="nav-link">
+                            <li class="dropdown">
+                                <a href="#" class="text-gray dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Browse</a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/threads">All Threads</a></li>
+                                    @auth
+                                        <li><a href="/threads?by={{ auth()->user()->name }}">My Threads</a></li>
+                                    @endauth
+                                </ul>
+                            </li>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/threads/create') }}">Add Thread</a>
@@ -38,7 +46,7 @@
                         <li class="nav-link">
                             <li class="dropdown">
                                 <a href="#" class="text-gray dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Channels</a>
-                                <ul class="dropdown-menu" style="height: 250px; overflow:auto">
+                                <ul class="dropdown-menu">
                                     @foreach ($channels as $channel)
                                     <li><a href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
                                     @endforeach
@@ -63,7 +71,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
