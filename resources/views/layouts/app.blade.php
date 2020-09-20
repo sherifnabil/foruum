@@ -13,10 +13,18 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
-
+    <style>
+        body: {
+            padding-bottom: 100px
+        }
+        .level: {
+            display: inline-block;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    <div id="app" style="padding-bottom: 100px">
+    <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -35,8 +43,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="/threads">All Threads</a></li>
                                     @auth
-                                        <li><a href="/threads?by={{ auth()->user()->name }}">My Threads</a></li>
+                                    <li><a href="/threads?by={{ auth()->user()->name }}">My Threads</a></li>
                                     @endauth
+                                    <li><a href="/threads?popular=1">Popular Threads</a></li>
                                 </ul>
                             </li>
                         </li>
