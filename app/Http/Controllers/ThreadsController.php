@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Thread;
 use App\Channel;
 use Illuminate\Http\Request;
@@ -58,21 +57,6 @@ class ThreadsController extends Controller
         ]);
     }
    
-    public function edit(Thread $thread)
-    {
-        //
-    }
-   
-    public function update(Request $request, Thread $thread)
-    {
-        //
-    }
-
-    public function destroy(Thread $thread)
-    {
-        //
-    }
-
     public function getThreads($channel, $filters)
     {
         $threads = Thread::latest()->filter($filters);
@@ -81,8 +65,8 @@ class ThreadsController extends Controller
 
             $threads = $threads->where('channel_id', $channel->id);
         } 
-
-        return $threads->get();
+        $threads = $threads->get();
+        return $threads;
 
     }
 }
