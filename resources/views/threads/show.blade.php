@@ -6,9 +6,16 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <a href="/threads?by={{ $thread->creator->name }}">
+                    <a href="{{ route('profile', $thread->creator) }}">
                         {{ $thread->creator->name }} 
                     </a> posted: {{ $thread->title }}
+                    @can('update', $thread)
+                        <form action="{{$thread->path()}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-xs pull-right">Delete</button>
+                        </form>
+                    @endcan()
                 </div>
 
                 <div class="card-body">
