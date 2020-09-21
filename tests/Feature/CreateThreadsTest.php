@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Reply;
 use App\Thread;
 use Tests\TestCase;
 
@@ -67,4 +68,34 @@ class CreateThreadsTest extends TestCase
        
         return  $this->post('/threads', $thread->toArray());
     }
+
+    /** @test */
+    public function unauthorized_users_may_not_delete_threads()
+    {
+        $thread = create(Thread::class);
+
+        $this->delete($thread->path())->assertRedirect('/login');
+        
+        $this->signIn();
+        
+        $this->delete($thread->path())->assertStatus(403);
+    }
+
+    /** @test */
+    public function authorized_users_can_delete_thread()
+    {
+
+        $this->signIn();
+
+        $thread = create(Thread::class, ['user_id' => auth()->id()]);
+
+        $reply = create(Reply::class, ['thread_id' => $thread->id]);
+
+        $this->json('DELETE', $thread->path())
+        ->assertStatus(204);
+
+        $this->assertDatabaseMissing('threads', [ 'thread_id' => $thread->id ])
+        ->assertDatabaseMissing('replies', [ 'id' => $reply->id ]);
+    }
+
 }
