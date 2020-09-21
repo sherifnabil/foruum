@@ -3,8 +3,7 @@
 namespace App;
 
 use App\Thread;
-use App\Favorite;
-use App\Favoritable;
+use App\Traits\Favoritable;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model

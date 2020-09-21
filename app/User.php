@@ -22,9 +22,18 @@ class User extends Authenticatable
 
     public function threads()
     {
-        return $this->hasMany(Thread::class, 'user_id');
+        return $this->hasMany(Thread::class, 'user_id')->latest();
     }
 
+    /**
+     * get route key name for user
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 
 
     /**
