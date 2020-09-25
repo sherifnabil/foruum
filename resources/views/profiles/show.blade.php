@@ -5,30 +5,18 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="page-header">
                 <h1>
-                    {{ $profileUser->name }}
-                    <small> Since {{ $profileUser->created_at->diffForHumans() }} </small>
+                    {{ ucfirst($profileUser->name) }}
                 </h1>
             </div>
             
-            @foreach ($threads as $thread)
-                <div class="card">
-                    <div class="card-header">
-                        <a href="/threads?by={{ $thread->creator->name }}">
-                            {{ $thread->creator->name }} 
-                        </a>
-                         posted: 
-                        <a href="{{ $thread->path() }}">
-                            {{ $thread->title }}
-                        </a>
-                        <span class="pull-right">{{ $thread->created_at->diffForHumans() }}</span>
-                    </div>
-    
-                    <div class="card-body">
-                        {{ $thread->body }}
-                    </div>
-                </div> <br>
+            @foreach ($activities as $date => $anActivity)
+                <h2 class="page-header text-center">
+                    {{ $date }}
+                </h2>
+                @foreach ($anActivity as $activity)
+                    @include("profiles.activities.{$activity->type}")
+                @endforeach
             @endforeach
-            {{ $threads->links() }}
         </div>
     </div>
 @endsection
