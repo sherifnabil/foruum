@@ -5,10 +5,14 @@ namespace App;
 use App\User;
 use App\Reply;
 use App\Channel;
+use App\Activity;
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
+    use RecordsActivity;
+
     protected static function boot()
     {
         parent::boot();
