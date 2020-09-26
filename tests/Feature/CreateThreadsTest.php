@@ -91,11 +91,20 @@ class CreateThreadsTest extends TestCase
 
         $reply = create(Reply::class, ['thread_id' => $thread->id]);
 
-        $this->json('DELETE', $thread->path())
-        ->assertStatus(403);
+        $response = $this->json('DELETE', $thread->path());
+        $response->assertStatus(403);
 
         $this->assertDatabaseMissing('threads', [ 'thread_id' => $thread->id ])
         ->assertDatabaseMissing('replies', [ 'reply_id' => $reply->id ]);
+        $this->assertDatabaseMissing('activities', [
+            'activity_subject_id' => $thread->id,
+            'activity_subject_type' => get_class($thread)
+        ]);
+
+        $this->assertDatabaseMissing('activities', [
+            'activity_subject_id' => $reply->id,
+            'activity_subject_type' => get_class($reply)
+        ]);
     }
 
 }
