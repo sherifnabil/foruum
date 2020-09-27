@@ -6,6 +6,20 @@ use App\Favorite;
 
 trait Favoritable
 {
+
+    /**
+     * Boot Related Models
+     *
+     * @return void
+     */
+    protected static function bootFavoritable()
+    {
+        static::deleting(function ($model) {
+            $model->favorites->each->delete();
+        });
+    }
+
+
     /**
      * Morph Relation for reply favoriting
      *
@@ -39,7 +53,7 @@ trait Favoritable
     {
         $attributes = ['user_id'=> auth()->id()];
 
-        $this->favorites()->where($attributes)->delete();
+        $this->favorites()->where($attributes)->get()->each->delete();
     }
 
     /**

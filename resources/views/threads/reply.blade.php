@@ -6,10 +6,11 @@
                     <a href="{{ route('profile', $reply->owner) }}">
                         {{ $reply->owner->name }} 
                     </a> Said ... {{ $reply->created_at->diffForHumans() }}
-        
-                    <div class="pull-right">
-                        <favorite :reply="{{ $reply }}"></favorite>
-                    </div>
+                    @auth
+                        <div class="pull-right">
+                            <favorite :reply="{{ $reply }}"></favorite>
+                        </div>
+                    @endauth
                 </div>
             </div>
             <div class="card-body">
