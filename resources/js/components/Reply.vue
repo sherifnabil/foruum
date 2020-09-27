@@ -1,4 +1,6 @@
 <script>
+import Favorite from './Favorite';
+
 export default {
     props: ['attributes'],
     data() {
@@ -27,6 +29,9 @@ export default {
             $(this.$el).fadeOut(300);
 
         }
+    },
+    components: {
+        Favorite
     }
 }
 </script>

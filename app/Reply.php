@@ -11,6 +11,7 @@ class Reply extends Model
 {
     use Favoritable, RecordsActivity;
     
+    protected $appends = ['favorites_count', 'isFavorited'];
     
     protected $guarded = [];
     
