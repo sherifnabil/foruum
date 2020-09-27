@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         // 'App\Model' => 'App\Policies\ModelPolicy',
         'App\Thread' => 'App\Policies\ThreadPolicy',
+        'App\Reply' => 'App\Policies\ReplyPolicy',
     ];
 
     /**
@@ -26,8 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::before(function($user) {
-            return $user->name == 'sherif';
-        });
+        // Gate::before(function($user) {
+        //     return $user->name == 'sherif';
+        // });
     }
 }

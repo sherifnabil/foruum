@@ -14,8 +14,8 @@ class Reply extends Model
     
     protected $guarded = [];
     
-    protected $with = ['owner', 'favorites'];
-
+    protected $with = ['owner', 'favorites', 'thread'];
+    
     public function thread()
     {
         return $this->belongsTo(Thread::class);
