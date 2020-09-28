@@ -18,7 +18,7 @@ export default {
     computed: {
 
         classes() {
-            ['btn', this.active ? 'btn-primary' : 'btn-default'];
+            return ['btn', this.active ? 'btn-primary' : 'btn-default'];
         },
 
         endpoint() {

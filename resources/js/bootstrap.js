@@ -41,6 +41,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 import Vue from 'vue'
 
+Vue.prototype.authorize = function(handler){
+    
+    let user = window.App.user;
+    
+    return user ? handler(user) : false;
+}
+
 window.events = new Vue()
 
 window.flash =  (message) => window.events.$emit('flash', message);

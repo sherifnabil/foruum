@@ -10,11 +10,10 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
     
     <!-- Styles -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/select2.min.css') }}" rel="stylesheet">
     <style>
         body: {
             padding-bottom: 100px;
@@ -37,10 +36,16 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/jquery.min.js') }}" ></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
     <script src="{{ asset('js/select2.min.js') }}" ></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}" ></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script>
+        window.App = {!! 
+            json_encode([
+                'signedIn'=> auth()->check(),
+                'user' => auth()->user()
+            ])
+        !!}
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });
